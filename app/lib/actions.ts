@@ -67,8 +67,8 @@ export async function createInvoice(prevState: State, formData: FormData) {
   }
  
   // Revalidate the cache for the invoices page and redirect the user.
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
+  revalidatePath('/painel/faturas');
+  redirect('/painel/faturas');
 }
 
 // Use Zod to update the expected types
@@ -105,14 +105,14 @@ export async function updateInvoice(
     return { message: 'Erro no banco de dados: Falha ao atualizar fatura.' };
   }
  
-  revalidatePath('/dashboard/invoices');
-  redirect('/dashboard/invoices');
+  revalidatePath('/painel/faturas');
+  redirect('/painel/faturas');
 }
 
 export async function deleteInvoice(id: string) {
   try {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
-    revalidatePath('/dashboard/invoices');
+    revalidatePath('/painel/faturas');
   } catch (error) {
     console.error('Erro no banco de dados: Falha ao excluir fatura.', error);
   }

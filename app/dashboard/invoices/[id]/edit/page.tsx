@@ -5,7 +5,7 @@ import { notFound } from 'next/navigation';
 import { Metadata } from 'next';
  
 export const metadata: Metadata = {
-  title: 'Edit Invoice'
+  title: 'Editar Fatura'
 };
 
 export default async function Page(props: { params: Promise<{ id: string }> }) {
@@ -24,9 +24,9 @@ export default async function Page(props: { params: Promise<{ id: string }> }) {
     <main>
       <Breadcrumbs
         breadcrumbs={[
-          { label: 'Invoices', href: '/dashboard/invoices' },
+          { label: 'Faturas', href: '/dashboard/invoices' },
           {
-            label: 'Edit Invoice',
+            label: 'Editar Fatura',
             href: `/dashboard/invoices/${id}/edit`,
             active: true,
           },

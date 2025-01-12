@@ -4,10 +4,10 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Acme Dashboard',
-    default: 'Acme Dashboard',
+    template: '%s | Painel Acme',
+    default: 'Painel Acme',
   },
-  description: 'The official Next.js Learn Dashboard built with App Router.',
+  description: 'Painel projeto do curso para Aprender Next.js.',
   metadataBase: new URL('https://next-learn-dashboard.vercel.sh'),
 };
 
@@ -17,7 +17,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="pt-br">
       <body className={`${inter.className} antialiased`}>{children}</body>
     </html>
   );

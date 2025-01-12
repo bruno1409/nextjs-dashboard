@@ -10,13 +10,13 @@ import { AuthError } from 'next-auth';
 const FormSchema = z.object({
   id: z.string(),
   customerId: z.string({
-    invalid_type_error: 'Please select a customer.',
+    invalid_type_error: 'Selecione um cliente.',
   }),
   amount: z.coerce
     .number()
-    .gt(0, { message: 'Please enter an amount greater than $0.' }),
+    .gt(0, { message: 'Digite um valor maior que R$ 0,00.' }),
   status: z.enum(['pending', 'paid'], {
-    invalid_type_error: 'Please select an invoice status.',
+    invalid_type_error: 'Selecione um status.',
   }),
   date: z.string(),
 });
@@ -44,7 +44,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Create Invoice.',
+      message: 'Faltando dados. Falha ao criar fatura.',
     };
   }
  
@@ -62,7 +62,7 @@ export async function createInvoice(prevState: State, formData: FormData) {
   } catch (error) {
     // If a database error occurs, return a more specific error.
     return {
-      message: 'Database Error: Failed to Create Invoice.',
+      message: 'Erro no banco de dados: Falha ao criar fatura.',
     };
   }
  
@@ -88,7 +88,7 @@ export async function updateInvoice(
   if (!validatedFields.success) {
     return {
       errors: validatedFields.error.flatten().fieldErrors,
-      message: 'Missing Fields. Failed to Update Invoice.',
+      message: 'Faltando dados. Falha ao atualizar fatura.',
     };
   }
  
@@ -102,7 +102,7 @@ export async function updateInvoice(
       WHERE id = ${id}
     `;
   } catch (error) {
-    return { message: 'Database Error: Failed to Update Invoice.' };
+    return { message: 'Erro no banco de dados: Falha ao atualizar fatura.' };
   }
  
   revalidatePath('/dashboard/invoices');
@@ -114,7 +114,7 @@ export async function deleteInvoice(id: string) {
     await sql`DELETE FROM invoices WHERE id = ${id}`;
     revalidatePath('/dashboard/invoices');
   } catch (error) {
-    console.error('Database Error: Failed to Delete Invoice.', error);
+    console.error('Erro no banco de dados: Falha ao excluir fatura.', error);
   }
 }
 
@@ -128,9 +128,9 @@ export async function authenticate(
     if (error instanceof AuthError) {
       switch (error.type) {
         case 'CredentialsSignin':
-          return 'Invalid credentials.';
+          return 'E-mail ou senha incorretos.';
         default:
-          return 'Something went wrong.';
+          return 'Algo deu errado. Tente novamente.';
       }
     }
     throw error;
